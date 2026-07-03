@@ -10,6 +10,9 @@ const demoForms = document.querySelectorAll("[data-demo-form]");
 const impactInput = document.querySelector("[data-impact-input]");
 const impactOutput = document.querySelector("[data-impact-output]");
 const galleryItems = document.querySelectorAll(".gallery-item");
+const programExpandButtons = document.querySelectorAll(
+  ".program-expand-toggle",
+);
 
 const themeClassMap = {
   education: "theme-education",
@@ -18,7 +21,7 @@ const themeClassMap = {
   skills: "theme-skills",
   environment: "theme-environment",
   rural: "theme-rural",
-  story: "theme-story"
+  story: "theme-story",
 };
 
 const setHeaderState = () => {
@@ -47,13 +50,16 @@ if (navToggle && navLinks) {
 }
 
 if (animatedItems.length) {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add("is-visible");
-      observer.unobserve(entry.target);
-    });
-  }, { threshold: 0.14 });
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.14 },
+  );
 
   animatedItems.forEach((item) => observer.observe(item));
 }
@@ -78,13 +84,16 @@ const animateCounter = (element) => {
 };
 
 if (counters.length) {
-  const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      animateCounter(entry.target);
-      counterObserver.unobserve(entry.target);
-    });
-  }, { threshold: 0.5 });
+  const counterObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        animateCounter(entry.target);
+        counterObserver.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.5 },
+  );
 
   counters.forEach((counter) => counterObserver.observe(counter));
 }
@@ -94,7 +103,10 @@ faqButtons.forEach((button) => {
     const parent = button.closest(".faq-item");
     if (!parent) return;
     parent.classList.toggle("open");
-    button.setAttribute("aria-expanded", String(parent.classList.contains("open")));
+    button.setAttribute(
+      "aria-expanded",
+      String(parent.classList.contains("open")),
+    );
   });
 });
 
@@ -124,8 +136,12 @@ sliders.forEach((slider) => {
   if (!track || !prev || !next) return;
 
   const scrollAmount = () => track.clientWidth * 0.88;
-  prev.addEventListener("click", () => track.scrollBy({ left: -scrollAmount(), behavior: "smooth" }));
-  next.addEventListener("click", () => track.scrollBy({ left: scrollAmount(), behavior: "smooth" }));
+  prev.addEventListener("click", () =>
+    track.scrollBy({ left: -scrollAmount(), behavior: "smooth" }),
+  );
+  next.addEventListener("click", () =>
+    track.scrollBy({ left: scrollAmount(), behavior: "smooth" }),
+  );
 });
 
 if (galleryItems.length) {
@@ -154,13 +170,18 @@ if (galleryItems.length) {
       const theme = themeClassMap[item.dataset.theme] || "theme-story";
       lightboxMedia.className = `lightbox-media ${theme}`;
       lightboxTitle.textContent = item.dataset.title || "Impact Story";
-      lightboxText.textContent = item.dataset.description || "A closer look at AVSAR's community-first work.";
+      lightboxText.textContent =
+        item.dataset.description ||
+        "A closer look at AVSAR's community-first work.";
       lightbox.classList.add("open");
     });
   });
 
   lightbox.addEventListener("click", (event) => {
-    if (event.target === lightbox || event.target.classList.contains("lightbox-close")) {
+    if (
+      event.target === lightbox ||
+      event.target.classList.contains("lightbox-close")
+    ) {
       closeLightbox();
     }
   });
@@ -170,21 +191,47 @@ if (galleryItems.length) {
   });
 }
 
+programExpandButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const card = button.closest(".program-card");
+    if (!card) return;
+    const details = card.querySelector(".program-details");
+    if (!details) return;
+    const isExpanded = card.classList.toggle("expanded");
+    details.hidden = !isExpanded;
+    button.textContent = isExpanded ? "Show Less" : "Read More";
+    button.setAttribute("aria-expanded", String(isExpanded));
+  });
+});
+
 demoForms.forEach((form) => {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     const status = form.querySelector(".form-status");
     if (!status) return;
-    status.textContent = "Thank you. Your message has been captured in this demo layout and can be connected to your backend next.";
+    status.textContent =
+      "Thank you. Your message has been captured in this demo layout and can be connected to your backend next.";
     form.reset();
   });
 });
 
 const impactMessages = [
-  { max: 2000, text: "This can support a school kit for a child and basic learning supplies." },
-  { max: 5000, text: "This can help a family access a community health screening or essentials." },
-  { max: 10000, text: "This can contribute to a focused skills workshop for a youth cohort." },
-  { max: Infinity, text: "This can help fund a larger outreach drive with education, care, and follow-up support." }
+  {
+    max: 2000,
+    text: "This can support a school kit for a child and basic learning supplies.",
+  },
+  {
+    max: 5000,
+    text: "This can help a family access a community health screening or essentials.",
+  },
+  {
+    max: 10000,
+    text: "This can contribute to a focused skills workshop for a youth cohort.",
+  },
+  {
+    max: Infinity,
+    text: "This can help fund a larger outreach drive with education, care, and follow-up support.",
+  },
 ];
 
 const updateImpactCalculator = () => {
