@@ -29,9 +29,6 @@
 }
 
 .impact-story .story-highlight {
-  font-size: 1.35rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
   margin-bottom: 1rem;
   display: inline-flex;
   align-items: center;
@@ -46,6 +43,16 @@
   border-radius: var(--radius-md);
   border: 0.0625rem solid rgba(63, 138, 91, 0.2);
   color: var(--color-primary-deep);
+}
+
+.impact-story .story-highlight svg {
+  width: 2rem;
+  height: 2rem;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .impact-story h3 {
