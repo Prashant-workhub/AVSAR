@@ -7,7 +7,7 @@
 }
 
 .page-contact .map-frame {
-  border: 1px solid rgba(77, 159, 91, 0.16);
+  border: 0.0625rem solid rgba(77, 159, 91, 0.16);
 }
 
 .page-contact .social-link:hover,

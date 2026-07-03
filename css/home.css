@@ -21,11 +21,11 @@
   align-items: center;
   gap: 0.65rem;
   padding: 0.85rem 1rem;
-  border-radius: 999px;
+  border-radius: 62.4375rem;
   background: rgba(255, 255, 255, 0.14);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 0.0625rem solid rgba(255, 255, 255, 0.18);
   box-shadow: var(--shadow-sm);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(1.125rem);
 }
 
 .trust-pill strong {
@@ -38,7 +38,7 @@
   left: 0;
   bottom: -0.22rem;
   width: 100%;
-  height: 2px;
+  height: 0.125rem;
   background: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0),
@@ -62,10 +62,10 @@
 .hero-badge {
   padding: 1rem 1.05rem;
   background: rgba(238, 244, 234, 0.96);
-  border: 1px solid rgba(79, 143, 97, 0.18);
-  border-radius: 22px;
+  border: 0.0625rem solid rgba(79, 143, 97, 0.18);
+  border-radius: 1.375rem;
   box-shadow: var(--shadow-md);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(1.125rem);
 }
 
 .hero-badge strong {
@@ -135,7 +135,7 @@
   border-radius: var(--radius-md);
   background: rgba(238, 244, 234, 0.96);
   box-shadow: var(--shadow-sm);
-  border: 1px solid rgba(79, 143, 97, 0.18);
+  border: 0.0625rem solid rgba(79, 143, 97, 0.18);
 }
 
 .stat-card strong {
@@ -154,7 +154,7 @@
   margin-top: 0.4rem;
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 67.5rem) {
   .hero-badge-grid,
   .stat-grid {
     grid-template-columns: 1fr;
