@@ -9,6 +9,17 @@ const sliders = document.querySelectorAll("[data-slider]");
 const demoForms = document.querySelectorAll("[data-demo-form]");
 const impactInput = document.querySelector("[data-impact-input]");
 const impactOutput = document.querySelector("[data-impact-output]");
+let donationSlider = null;
+let donationAmountLabel = null;
+let donationUpiText = null;
+let donationQrGrid = null;
+let donationUpiButton = null;
+let donationBankHolder = null;
+let donationBankName = null;
+let donationBankAccount = null;
+let donationBankIfsc = null;
+let donationBankBranch = null;
+let donationBankNote = null;
 let galleryItems = [];
 let programExpandButtons = [];
 
@@ -143,10 +154,95 @@ const renderEvents = () => {
   }
 };
 
+const buildUpiUri = (upi, amount) => {
+  const amountValue = Number(amount || 0).toFixed(2);
+  const query = [`am=${amountValue}`, "cu=INR"];
+  if (upi) {
+    query.unshift(`pa=${encodeURIComponent(upi)}`);
+  }
+  return `upi://pay?${query.join("&")}`;
+};
+
+const renderDonate = () => {
+  const donateData = window.AVSAR_DONATE_DATA;
+  if (!donateData) return;
+
+  donationSlider = document.querySelector("[data-donation-slider]");
+  donationAmountLabel = document.querySelector("[data-donation-amount-label]");
+  donationUpiText = document.querySelector("[data-donation-upi-text]");
+  donationQrGrid = document.querySelector("[data-donation-qr-grid]");
+  donationUpiButton = document.querySelector("[data-donation-upi-button]");
+  donationBankHolder = document.querySelector("[data-bank-holder]");
+  donationBankName = document.querySelector("[data-bank-name]");
+  donationBankAccount = document.querySelector("[data-bank-account]");
+  donationBankIfsc = document.querySelector("[data-bank-ifsc]");
+  donationBankBranch = document.querySelector("[data-bank-branch]");
+  donationBankNote = document.querySelector("[data-bank-note]");
+
+  if (!donationSlider || !donationAmountLabel || !donationQrGrid) return;
+
+  const sliderConfig = donateData.slider || {};
+  const upi = donateData.upi || "";
+  const bank = donateData.bank || {};
+
+  donationSlider.min = String(sliderConfig.min ?? 100);
+  donationSlider.max = String(sliderConfig.max ?? 5000);
+  donationSlider.step = String(sliderConfig.step ?? 50);
+  donationSlider.value = String(sliderConfig.defaultAmount ?? donationSlider.value);
+
+  if (donationBankHolder) donationBankHolder.textContent = bank.accountHolder || "";
+  if (donationBankName) donationBankName.textContent = bank.bankName || "";
+  if (donationBankAccount) donationBankAccount.textContent = bank.accountNumber || "";
+  if (donationBankIfsc) donationBankIfsc.textContent = bank.ifsc || "";
+  if (donationBankBranch) donationBankBranch.textContent = bank.branch || "";
+  if (donationBankNote) donationBankNote.textContent = bank.note || "";
+
+  const renderQr = (amount) => {
+    const amountValue = Number(amount || 0);
+    const payload = buildUpiUri(upi, amountValue);
+    if (donationQrGrid) {
+      donationQrGrid.innerHTML = "";
+      if (window.QRCode) {
+        new window.QRCode(donationQrGrid, {
+          text: payload,
+          width: 228,
+          height: 228,
+          colorDark: "#0f172a",
+          colorLight: "#ffffff",
+          correctLevel: window.QRCode.CorrectLevel.H,
+        });
+      } else {
+        donationQrGrid.textContent = "QR code library unavailable";
+      }
+    }
+
+    donationAmountLabel.textContent = `Rs ${amountValue.toLocaleString("en-IN")}`;
+    if (donationUpiText) {
+      donationUpiText.textContent = upi
+        ? `UPI ID: ${upi} | Amount: Rs ${amountValue.toLocaleString("en-IN")}`
+        : `Add your UPI ID in js/data/donate.js | Amount: Rs ${amountValue.toLocaleString("en-IN")}`;
+    }
+    if (donationUpiButton) {
+      donationUpiButton.href = payload;
+      donationUpiButton.textContent = upi ? "Open Payment App" : "Add UPI ID to enable";
+    }
+  };
+
+  donationSlider.addEventListener("input", () => {
+    renderQr(donationSlider.value);
+  });
+
+  renderQr(donationSlider.value);
+};
+
 renderPrograms();
 renderEvents();
+renderDonate();
 
 animatedItems = document.querySelectorAll("[data-animate]");
+animatedItems.forEach((item, index) => {
+  item.style.setProperty("--reveal-delay", `${Math.min(index * 60, 420)}ms`);
+});
 galleryItems = document.querySelectorAll(".gallery-item");
 programExpandButtons = document.querySelectorAll(".program-expand-toggle");
 

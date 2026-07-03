@@ -262,6 +262,90 @@
         </div>
       </section>
 
+      <section class="section donation-transaction-section">
+        <div class="container">
+          <div class="section-header centered" data-animate>
+            <span class="eyebrow">Donate Directly</span>
+            <h2>Set an amount, preview the QR, and keep bank details ready.</h2>
+            <p>
+              Slide the amount on the left. The QR preview in the center updates
+              live, and the bank details on the right stay visible for manual
+              transfer support.
+            </p>
+          </div>
+          <div class="donation-tool-grid">
+            <article class="donation-panel donation-slider-panel" data-animate>
+              <span class="eyebrow">Donation Amount</span>
+              <h3>Choose your amount</h3>
+              <div class="donation-amount-readout">
+                <strong data-donation-amount-label>Rs 599</strong>
+                <span data-donation-amount-note>Live QR preview</span>
+              </div>
+              <input
+                class="donation-slider"
+                type="range"
+                min="100"
+                max="5000"
+                step="50"
+                value="599"
+                data-donation-slider
+              />
+              <div class="donation-range-labels">
+                <span>Rs 100</span>
+                <span>Rs 5,000</span>
+              </div>
+            </article>
+            <article class="donation-panel donation-qr-panel" data-animate>
+              <span class="eyebrow">UPI QR</span>
+              <h3>Scan to pay</h3>
+              <div class="qr-shell">
+                <div class="qr-code" data-donation-qr-grid></div>
+              </div>
+              <p class="qr-caption" data-donation-upi-text></p>
+              <a
+                class="btn btn-primary donation-upi-button"
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-donation-upi-button
+              >
+                Open Payment App
+              </a>
+            </article>
+            <article class="donation-panel donation-bank-panel" data-animate>
+              <span class="eyebrow">Bank Details</span>
+              <h3>Manual transfer info</h3>
+              <dl class="bank-details">
+                <div>
+                  <dt>Account Holder</dt>
+                  <dd data-bank-holder>AVSAR Social Foundation</dd>
+                </div>
+                <div>
+                  <dt>Bank Name</dt>
+                  <dd data-bank-name>Sample Bank</dd>
+                </div>
+                <div>
+                  <dt>Account Number</dt>
+                  <dd data-bank-account>1234 5678 9012</dd>
+                </div>
+                <div>
+                  <dt>IFSC</dt>
+                  <dd data-bank-ifsc>SAMP0001234</dd>
+                </div>
+                <div>
+                  <dt>Branch</dt>
+                  <dd data-bank-branch>Main Branch</dd>
+                </div>
+              </dl>
+              <p class="bank-note" data-bank-note>
+                Replace these placeholder details with your real bank
+                information.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section class="section">
         <div class="container split-section">
           <div data-animate>
@@ -470,6 +554,8 @@
       >
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="../js/data/donate.js"></script>
     <script src="../js/main.js"></script>
   </body>
 </html>
