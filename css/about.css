@@ -15,3 +15,86 @@
   background: rgba(244, 250, 245, 0.96);
 }
 
+.page-about .founder-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+  gap: 2rem;
+  align-items: center;
+}
+
+.page-about .founder-portrait {
+  position: relative;
+  margin: 0;
+  padding: 1.1rem;
+  border-radius: 2rem;
+  background: linear-gradient(135deg, rgba(209, 44, 44, 0.14), rgba(249, 115, 22, 0.08));
+  box-shadow: var(--shadow-lg);
+}
+
+.page-about .founder-portrait::after {
+  content: "";
+  position: absolute;
+  right: 1rem;
+  bottom: -0.75rem;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 1.25rem;
+  background: linear-gradient(135deg, #fb923c, #f97316);
+  box-shadow: 0 1rem 2.25rem rgba(249, 115, 22, 0.24);
+}
+
+.page-about .founder-portrait img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 1.45rem;
+  background: linear-gradient(180deg, #d62d2d, #ab1515);
+}
+
+.page-about .founder-card {
+  padding: clamp(1.6rem, 3vw, 2.4rem);
+  border-radius: 2rem;
+  background: linear-gradient(180deg, rgba(255, 250, 240, 0.98), rgba(251, 243, 230, 0.96));
+  box-shadow: var(--shadow-md);
+}
+
+.page-about .founder-card h2 {
+  margin-bottom: 0.4rem;
+}
+
+.page-about .founder-role {
+  margin-top: 0;
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.page-about .founder-card p {
+  max-width: 44rem;
+}
+
+.page-about .founder-quote {
+  margin-top: 1.5rem;
+  padding: 1.3rem 1.45rem;
+  border-left: 0.25rem solid var(--color-accent);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.page-about .founder-quote p {
+  margin: 0;
+  font-style: italic;
+}
+
+@media (max-width: 55rem) {
+  .page-about .founder-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .page-about .founder-portrait::after {
+    right: 0.75rem;
+    bottom: -0.6rem;
+    width: 4.25rem;
+    height: 4.25rem;
+  }
+}
