@@ -1990,8 +1990,17 @@ body::after {
 
   body::before,
   body::after {
-    opacity: 0.22;
-    filter: blur(1.65rem);
+    opacity: 0.12;
+    filter: blur(1.9rem);
+  }
+
+  main::before {
+    opacity: 0.1;
+  }
+
+  .section:not(.hero):not(.page-hero)::before {
+    opacity: 0.08;
+    background-size: 18rem;
   }
 
   h1 {
@@ -2087,16 +2096,24 @@ body::after {
   }
 
   .btn-row {
-    flex-direction: column;
-    gap: 0.75rem;
-    margin-top: 1.4rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 1.35rem;
   }
 
   .btn-row .btn {
-    width: 100%;
-    min-height: 2.85rem;
-    padding: 0.72rem 1rem;
-    font-size: 0.95rem;
+    flex: 1 1 auto;
+    min-width: 9.5rem;
+    min-height: 2.75rem;
+    padding: 0.68rem 1rem;
+    font-size: 0.9rem;
+    box-shadow: none;
+  }
+
+  .btn-row .btn-primary,
+  .btn-row .btn-secondary {
+    box-shadow: 0 0.5rem 1.1rem rgba(15, 23, 42, 0.14);
   }
 
   .card,
@@ -2121,17 +2138,99 @@ body::after {
   .page-badge,
   .donation-panel,
   .impact-story {
-    padding: 1rem;
-    border-radius: 1.1rem;
+    padding: 1.05rem 1.1rem;
+    border-radius: 0.95rem;
+    box-shadow: 0 0.3rem 0.9rem rgba(15, 23, 42, 0.06);
+    border-color: rgba(97, 121, 99, 0.14);
+  }
+
+  .card:hover,
+  .calendar-card:hover,
+  .step-card:hover,
+  .faq-item:hover,
+  .partner-chip:hover {
+    transform: none;
+    box-shadow: 0 0.3rem 0.9rem rgba(15, 23, 42, 0.06);
+  }
+
+  .cta-band {
+    box-shadow: 0 0.5rem 1.4rem rgba(8, 18, 36, 0.2);
   }
 
   .spotlight-card {
-    padding: 1rem;
-    border-radius: 1.1rem;
+    padding: 1.1rem;
+    border-radius: 0.95rem;
+    box-shadow: 0 0.5rem 1.4rem rgba(8, 18, 36, 0.18);
   }
 
   .spotlight-card ul {
     margin-top: 1rem;
+  }
+
+  /* Compact, list-style rows instead of tall stacked blocks.
+     Grid (not flex) so the icon spans every row while the
+     heading/text/link stack naturally in the second column. */
+  .contact-card,
+  .benefit-card,
+  .feature-card,
+  .hours-grid .card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 0.85rem;
+    row-gap: 0.3rem;
+    align-items: start;
+    text-align: left;
+  }
+
+  .contact-card .icon-badge,
+  .benefit-card .icon-badge,
+  .feature-card .icon-badge,
+  .hours-grid .icon-badge {
+    grid-row: 1 / -1;
+    margin-bottom: 0;
+  }
+
+  .contact-card h3,
+  .benefit-card h3,
+  .feature-card h3,
+  .hours-grid .card h3 {
+    margin-bottom: 0.15rem;
+  }
+
+  .contact-card p,
+  .benefit-card p,
+  .feature-card p,
+  .hours-grid .card p {
+    margin-bottom: 0.3rem;
+  }
+
+  .step-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 0.85rem;
+    row-gap: 0.2rem;
+    align-items: start;
+  }
+
+  .step-card strong {
+    grid-row: 1 / -1;
+    margin-bottom: 0;
+  }
+
+  .icon-badge {
+    width: 2.65rem;
+    height: 2.65rem;
+    border-radius: 0.8rem;
+  }
+
+  .icon-badge svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .program-visual {
+    min-height: 8.5rem;
+    border-radius: 0.85rem;
   }
 
   .hero-grid,
@@ -2145,11 +2244,35 @@ body::after {
   }
 
   .section-header {
-    margin-bottom: 1.9rem;
+    margin-bottom: 1.6rem;
   }
 
   .section-header p {
     max-width: none;
+  }
+
+  .grid-2,
+  .grid-3,
+  .grid-4,
+  .program-grid,
+  .feature-grid,
+  .opportunity-grid,
+  .contact-grid,
+  .team-grid,
+  .certificate-grid,
+  .impact-grid,
+  .donation-grid,
+  .hours-grid,
+  .stat-grid,
+  .calendar-strip,
+  .process-steps,
+  .form-grid,
+  .split-section {
+    gap: 0.85rem;
+  }
+
+  .btn-row {
+    margin-top: 1.1rem;
   }
 
   .page-badge {
@@ -2288,6 +2411,78 @@ body::after {
   .lightbox-media {
     min-height: 18.75rem;
   }
+
+  .timeline-item {
+    margin-left: 2.2rem;
+    padding: 0.95rem 1.05rem;
+    border-radius: 0.85rem;
+    box-shadow: none;
+    border: 0.0625rem solid rgba(97, 121, 99, 0.14);
+  }
+
+  .timeline::before {
+    left: 0.9rem;
+  }
+
+  .timeline-item::before {
+    left: -1.85rem;
+    top: 1.15rem;
+    width: 0.75rem;
+    height: 0.75rem;
+    box-shadow: 0 0 0 0.3rem rgba(47, 127, 76, 0.12);
+  }
+
+  .story-quote {
+    padding: 1.15rem 1.2rem;
+    border-radius: 0.9rem;
+  }
+
+  .faq-question {
+    padding: 1rem 1.1rem;
+    font-weight: 600;
+    font-size: 0.94rem;
+  }
+
+  .faq-answer-inner {
+    padding: 0 1.1rem 1.1rem;
+    font-size: 0.92rem;
+  }
+
+  .form-shell,
+  .transparency-shell {
+    padding: 1.15rem;
+    box-shadow: 0 0.4rem 1.1rem rgba(15, 23, 42, 0.07);
+  }
+
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    padding: 0.8rem 0.9rem;
+    border-radius: 0.85rem;
+  }
+
+  .event-date {
+    width: 3.6rem;
+    height: 3.6rem;
+    border-radius: 1.05rem;
+  }
+
+  .social-link,
+  .amount-chip,
+  .partner-chip {
+    padding: 0.65rem 0.85rem;
+    min-width: 0;
+    font-size: 0.88rem;
+  }
+
+  .qr-shell {
+    min-height: 13rem;
+    padding: 0.5rem;
+  }
+
+  .map-frame {
+    min-height: 16rem;
+  }
 }
 
 @media (max-width: 30rem) {
@@ -2343,11 +2538,44 @@ body::after {
   .form-shell,
   .transparency-shell,
   .cta-band {
-    padding: 1rem;
+    padding: 0.95rem;
   }
 
   .btn {
     min-height: 2.75rem;
+  }
+
+  .btn-row .btn {
+    min-width: 100%;
+  }
+
+  .icon-badge {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+
+  .icon-badge svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  .grid-2,
+  .grid-3,
+  .grid-4,
+  .program-grid,
+  .feature-grid,
+  .opportunity-grid,
+  .contact-grid,
+  .team-grid,
+  .certificate-grid,
+  .impact-grid,
+  .donation-grid,
+  .hours-grid,
+  .stat-grid,
+  .calendar-strip,
+  .process-steps,
+  .form-grid {
+    gap: 0.7rem;
   }
 
   .footer-bottom,

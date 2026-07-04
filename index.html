@@ -30,9 +30,74 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/intro.css" />
     <link rel="stylesheet" href="css/home.css" />
+    <link rel="stylesheet" href="css/theme-dark.css" />
   </head>
   <body id="top" class="page-home">
+    <div id="intro-overlay">
+      <div class="intro-glow intro-glow-1"></div>
+      <div class="intro-glow intro-glow-2"></div>
+
+      <button id="intro-skip" class="intro-skip" type="button">
+        <span>Skip Intro</span>
+        <svg
+          viewBox="0 0 24 24"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M5 12h14" />
+          <path d="m12 5 7 7-7 7" />
+        </svg>
+      </button>
+
+      <div class="intro-stage">
+        <!-- <div class="intro-seed-wrap">
+      <div class="intro-seed"></div>
+      <svg class="intro-sprout" viewBox="0 0 100 100">
+        <path class="intro-stem" d="M50,95 Q50,70 50,25" stroke-width="3.5" />
+        <path class="intro-leaf-left" d="M50,70 C25,55 20,35 50,35" stroke-width="3" />
+        <path class="intro-leaf-right" d="M50,55 C75,40 80,20 50,20" stroke-width="3" />
+        <circle class="intro-spark" cx="50" cy="20" r="4" fill="#F59E0B" />
+      </svg>
+    </div> -->
+        <div class="intro-seed-wrap">
+          <div class="intro-seed"></div>
+          <svg class="intro-sprout" viewBox="0 0 100 100">
+            <path
+              class="intro-stem"
+              d="M50,95 Q50,70 50,25"
+              stroke-width="3.5"
+            />
+            <path
+              class="intro-leaf-left"
+              d="M50,70 C25,55 20,35 50,35"
+              stroke-width="3"
+            />
+            <path
+              class="intro-leaf-right"
+              d="M50,55 C75,40 80,20 50,20"
+              stroke-width="3"
+            />
+            <circle class="intro-spark" cx="50" cy="20" r="4" fill="#F59E0B" />
+          </svg>
+          <img class="intro-logo" src="favicon/logo.png" alt="AVSAR logo" />
+        </div>
+
+        <div class="intro-values">
+          <span class="intro-value" data-value="hope">Hope</span>
+          <span class="intro-value" data-value="dignity">Dignity</span>
+        </div>
+
+        <div class="intro-brand">
+          <h1 class="intro-title">AVSAR</h1>
+          <p class="intro-subtitle">Social Foundation</p>
+          <div class="intro-divider"></div>
+          <p class="intro-tagline">"Hope Into Action"</p>
+        </div>
+      </div>
+    </div>
     <header class="site-header">
       <div class="container nav-shell">
         <a
@@ -720,5 +785,6 @@
     </div>
 
     <script src="js/main.js"></script>
+    <script src="js/intro.js"></script>
   </body>
 </html>

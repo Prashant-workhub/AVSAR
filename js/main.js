@@ -4,7 +4,6 @@ const navLinks = document.querySelector(".nav-links");
 let animatedItems = [];
 const counters = document.querySelectorAll("[data-counter]");
 const faqButtons = document.querySelectorAll(".faq-question");
-const filterGroups = document.querySelectorAll("[data-filter-group]");
 const sliders = document.querySelectorAll("[data-slider]");
 const demoForms = document.querySelectorAll("[data-demo-form]");
 const impactInput = document.querySelector("[data-impact-input]");
@@ -292,25 +291,6 @@ faqButtons.forEach((button) => {
       "aria-expanded",
       String(parent.classList.contains("open")),
     );
-  });
-});
-
-filterGroups.forEach((group) => {
-  const buttons = group.querySelectorAll(".filter-btn");
-  const items = document.querySelectorAll(group.dataset.targets);
-
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const filter = button.dataset.filter;
-      buttons.forEach((btn) => btn.classList.remove("active"));
-      button.classList.add("active");
-
-      items.forEach((item) => {
-        const categories = (item.dataset.category || "").split(" ");
-        const visible = filter === "all" || categories.includes(filter);
-        item.classList.toggle("hidden", !visible);
-      });
-    });
   });
 });
 

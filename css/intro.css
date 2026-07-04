@@ -1,0 +1,402 @@
+/* =====================================================================
+   AVSAR — Intro Loading Animation
+   Add <link rel="stylesheet" href="css/intro.css" /> to index.html
+   ===================================================================== */
+
+#intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 1rem;
+  text-align: center;
+  color: #fff;
+  background: radial-gradient(
+    circle at 50% 30%,
+    #173a25 0%,
+    #09180f 55%,
+    #040c07 100%
+  );
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#intro-overlay.intro-exit {
+  opacity: 0;
+  transform: scale(1.05);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+#intro-overlay.intro-hidden {
+  display: none;
+}
+
+body.intro-active {
+  overflow: hidden;
+}
+
+/* Decorative ambient glows */
+.intro-glow {
+  position: absolute;
+  width: 25rem;
+  height: 25rem;
+  border-radius: 50%;
+  filter: blur(6.25rem);
+  pointer-events: none;
+}
+
+.intro-glow-1 {
+  top: -10rem;
+  left: -10rem;
+  background: rgba(52, 211, 153, 0.1);
+}
+
+.intro-glow-2 {
+  bottom: -10rem;
+  right: -10rem;
+  background: rgba(245, 158, 11, 0.1);
+}
+
+/* Skip button */
+.intro-skip {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border-radius: 62.4375rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  backdrop-filter: blur(0.5rem);
+  opacity: 0;
+  animation: intro-fade-in 0.5s ease 0.3s forwards;
+  transition:
+    opacity 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.intro-skip:hover,
+.intro-skip:focus-visible {
+  opacity: 1 !important;
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.05);
+}
+
+.intro-skip svg {
+  width: 0.75rem;
+  height: 0.75rem;
+  stroke: currentColor;
+  fill: none;
+}
+
+/* Center stage */
+.intro-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 26rem;
+}
+
+/* Seed + sprout */
+.intro-seed-wrap {
+  position: relative;
+  height: 7rem;
+  width: 7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.intro-seed {
+  position: absolute;
+  height: 1.25rem;
+  width: 1.25rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fbbf24, #d97706);
+  opacity: 1;
+  animation: intro-seed-pulse 1s ease-in-out infinite;
+  filter: drop-shadow(0 0 0.75rem rgba(245, 158, 11, 0.6));
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+#intro-overlay.intro-step-1 .intro-seed,
+#intro-overlay.intro-step-2 .intro-seed,
+#intro-overlay.intro-step-3 .intro-seed {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.intro-sprout {
+  position: absolute;
+  width: 5rem;
+  height: 5rem;
+  color: #34d399;
+  opacity: 0;
+  transform: scale(0.8);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+  filter: drop-shadow(0 0 0.9rem rgba(52, 211, 153, 0.4));
+}
+
+#intro-overlay.intro-step-1 .intro-sprout,
+#intro-overlay.intro-step-2 .intro-sprout {
+  opacity: 1;
+  transform: scale(1);
+}
+
+#intro-overlay.intro-step-3 .intro-sprout {
+  opacity: 0;
+  transform: scale(0.85);
+}
+
+/* Real AVSAR logo, fades in where the sprout was as the final beat */
+.intro-logo {
+  position: absolute;
+  width: 4.25rem;
+  height: 4.25rem;
+  object-fit: contain;
+  opacity: 0;
+  transform: scale(0.7);
+  filter: drop-shadow(0 0 1rem rgba(52, 211, 153, 0.35));
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+
+#intro-overlay.intro-step-3 .intro-logo {
+  opacity: 1;
+  transform: scale(2.5);
+}
+
+.intro-sprout path {
+  stroke: currentColor;
+  fill: none;
+  stroke-linecap: round;
+  stroke-dasharray: 120;
+  stroke-dashoffset: 120;
+  transition: stroke-dashoffset 1s ease-in-out;
+}
+
+#intro-overlay.intro-step-1 .intro-stem {
+  stroke-dashoffset: 0;
+  transition-delay: 0s;
+}
+
+#intro-overlay.intro-step-1 .intro-leaf-left {
+  stroke-dashoffset: 0;
+  transition-delay: 0.4s;
+}
+
+#intro-overlay.intro-step-1 .intro-leaf-right {
+  stroke-dashoffset: 0;
+  transition-delay: 0.8s;
+}
+
+.intro-spark {
+  opacity: 0;
+  transform-origin: 50px 20px;
+  transform: scale(0);
+  transition:
+    opacity 0.4s ease 1.2s,
+    transform 0.4s ease 1.2s;
+  filter: drop-shadow(0 0 0.5rem #f59e0b);
+}
+
+#intro-overlay.intro-step-1 .intro-spark {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Value words (Hope / Dignity) */
+.intro-values {
+  position: relative;
+  height: 2.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.intro-value {
+  position: absolute;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(25px);
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
+
+.intro-value[data-value="hope"] {
+  color: #fbbf24;
+  text-shadow: 0 0 0.5rem rgba(245, 158, 11, 0.3);
+}
+
+.intro-value[data-value="dignity"] {
+  color: #6ee7b7;
+  text-shadow: 0 0 0.5rem rgba(110, 231, 183, 0.3);
+}
+
+#intro-overlay.intro-step-1 .intro-value[data-value="hope"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#intro-overlay.intro-step-2 .intro-value[data-value="hope"] {
+  opacity: 0;
+  transform: translateY(-25px);
+}
+
+#intro-overlay.intro-step-2 .intro-value[data-value="dignity"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#intro-overlay.intro-step-3 .intro-value {
+  opacity: 0;
+}
+
+/* Brand reveal */
+.intro-brand {
+  overflow: hidden;
+}
+
+.intro-title,
+.intro-subtitle,
+.intro-divider,
+.intro-tagline {
+  opacity: 0;
+}
+
+.intro-title {
+  margin: 0 0 0.25rem;
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(2.2rem, 8vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  background: linear-gradient(90deg, #ffffff, #f1f5f9, #a7f3d0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transform: translateY(60px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.intro-subtitle {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(167, 243, 208, 0.85);
+  transition: opacity 0.8s ease 0.4s;
+}
+
+.intro-divider {
+  width: 0;
+  height: 0.2rem;
+  margin: 1rem auto 0;
+  border-radius: 62.4375rem;
+  background: linear-gradient(90deg, #fbbf24, #34d399);
+  transition:
+    width 0.8s ease 0.6s,
+    opacity 0.2s ease 0.6s;
+}
+
+.intro-tagline {
+  margin: 0.85rem 0 0;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: rgba(226, 232, 240, 0.75);
+  transition:
+    opacity 0.6s ease 0.8s,
+    transform 0.6s ease 0.8s;
+  transform: translateY(10px);
+}
+
+#intro-overlay.intro-step-3 .intro-title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#intro-overlay.intro-step-3 .intro-subtitle,
+#intro-overlay.intro-step-3 .intro-tagline {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#intro-overlay.intro-step-3 .intro-divider {
+  width: 5rem;
+}
+
+@keyframes intro-seed-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+}
+
+@keyframes intro-fade-in {
+  to {
+    opacity: 0.6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #intro-overlay,
+  .intro-seed,
+  .intro-sprout,
+  .intro-sprout path,
+  .intro-spark,
+  .intro-value,
+  .intro-title,
+  .intro-subtitle,
+  .intro-divider,
+  .intro-tagline {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@media (max-width: 30rem) {
+  .intro-seed-wrap {
+    height: 5.5rem;
+    width: 5.5rem;
+  }
+
+  .intro-sprout {
+    width: 4rem;
+    height: 4rem;
+  }
+}
