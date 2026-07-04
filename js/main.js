@@ -57,35 +57,9 @@ const renderPrograms = () => {
     .join("");
 };
 
-const eventIconMarkup = (theme) => {
-  switch (theme) {
-    case "healthcare":
-      return `
-        <svg viewBox="0 0 24 24" role="presentation">
-          <path d="M12 4v16" />
-          <path d="M4 12h16" />
-          <circle cx="12" cy="12" r="8" />
-        </svg>
-      `;
-    case "women":
-      return `
-        <svg viewBox="0 0 24 24" role="presentation">
-          <path d="M8 4h8" />
-          <path d="M6 8h12" />
-          <path d="M7.5 8v10" />
-          <path d="M16.5 8v10" />
-        </svg>
-      `;
-    default:
-      return `
-        <svg viewBox="0 0 24 24" role="presentation">
-          <rect x="4" y="5" width="16" height="15" rx="2" />
-          <path d="M4 9h16" />
-          <path d="M8 3v4" />
-          <path d="M16 3v4" />
-        </svg>
-      `;
-  }
+const buildYouTubeEmbedUrl = (videoId) => {
+  if (!videoId) return "";
+  return `https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}?rel=0&modestbranding=1&playsinline=1`;
 };
 
 const renderEvents = () => {
@@ -93,23 +67,54 @@ const renderEvents = () => {
   if (!eventsData) return;
 
   const pastGrid = document.querySelector("[data-events-past]");
+  const pastVideos = eventsData.pastVideos || eventsData.past || [];
 
-  if (pastGrid && eventsData.past?.length) {
-    pastGrid.innerHTML = eventsData.past
+  if (pastGrid && pastVideos.length) {
+    pastGrid.innerHTML = pastVideos
       .map(
         (event) => `
-          <button
-            class="gallery-item theme-${event.theme}"
-            type="button"
-            data-theme="${event.theme}"
-            data-title="${event.dataTitle}"
-            data-description="${event.dataDescription}"
-            data-animate
-          >
-            <span class="gallery-caption"
-              ><strong>${event.title}</strong><br />${event.subtitle}</span
+          ${(() => {
+            const videoId = event.videoId || event.youtubeId || "";
+            const hasEmbed = Boolean(videoId) && !/^(YOUR_|PLACEHOLDER_|ADD_)/i.test(videoId);
+            const ratio = event.kind === "short" ? "9 / 16" : event.ratio || "16 / 9";
+            const embedUrl = hasEmbed ? buildYouTubeEmbedUrl(videoId) : "";
+            const notesMarkup = (event.notes || []).map((note) => `<li>${note}</li>`).join("");
+
+            return `
+          <article class="event-recap card" data-animate>
+            <div
+              class="event-recap__media theme-${event.theme || "story"}"
+              style="--event-ratio: ${ratio}"
             >
-          </button>
+              ${
+                embedUrl
+                  ? `<iframe
+                      src="${embedUrl}"
+                      title="${event.title}"
+                      loading="lazy"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowfullscreen
+                    ></iframe>`
+                  : `<div class="event-recap__placeholder">
+                      <strong>Add a YouTube video ID</strong>
+                      <span>Replace the placeholder value in <code>js/data/events.js</code>.</span>
+                    </div>`
+              }
+            </div>
+            <div class="event-recap__content">
+              <div class="event-recap__meta">
+                <span class="tag accent">${event.kind === "short" ? "YouTube Short" : "YouTube Video"}</span>
+                <span class="event-recap__caption">${event.caption || "Past event recap"}</span>
+              </div>
+              <h3>${event.title}</h3>
+              <p>${event.summary}</p>
+              <ul class="event-recap__notes">
+                ${notesMarkup}
+              </ul>
+            </div>
+          </article>
+            `;
+          })()}
         `,
       )
       .join("");
