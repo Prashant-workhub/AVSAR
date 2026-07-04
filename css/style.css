@@ -927,7 +927,7 @@ p {
 
 .theme-skills {
   background-color: #1d4ed8;
-  background-image: url("../images/skills-scene.svg");
+  background-image: url("../images/skill.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -935,7 +935,7 @@ p {
 
 .theme-environment {
   background-color: #15803d;
-  background-image: url("../images/environment-scene.svg");
+  background-image: url("../images/green.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -943,7 +943,7 @@ p {
 
 .theme-rural {
   background-color: #b45309;
-  background-image: url("../images/community-scene.svg");
+  background-image: url("../images/community-scene.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
