@@ -1,3 +1,21 @@
+body.page-gallery .page-hero {
+  background-color: #1b4931;
+  background-image:
+    linear-gradient(135deg, rgba(8, 27, 17, 0.2), rgba(183, 238, 164, 0.08)),
+    url("../images/bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+body.page-gallery .spotlight-card {
+  background:
+    linear-gradient(145deg, rgba(10, 30, 76, 0.65), rgba(37, 99, 235, 0.58)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent);
+  color: #fff;
+  box-shadow: var(--shadow-lg);
+}
+
 .page-gallery .gallery-item {
   box-shadow: var(--shadow-md);
 }
@@ -12,4 +30,3 @@
 .page-gallery .masonry {
   column-gap: 1.35rem;
 }
-
