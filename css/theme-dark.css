@@ -460,3 +460,20 @@ p,
     box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.3) !important;
   }
 }
+
+.page-contact .contact-card-label,
+.page-contact .contact-card-note,
+.page-contact .contact-card-link {
+  color: #f8fafc !important;
+}
+
+.page-contact .contact-card-link {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+.page-contact .contact-card-link:hover,
+.page-contact .contact-card-link:focus-visible {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.24) !important;
+}
