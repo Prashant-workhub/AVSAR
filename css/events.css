@@ -16,23 +16,6 @@ body.page-events .spotlight-card {
   box-shadow: var(--shadow-lg);
 }
 
-.page-events .event-card,
-.page-events .calendar-card {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.98),
-    rgba(244, 250, 245, 0.95)
-  );
-}
-
-.page-events .event-date {
-  background: linear-gradient(
-    145deg,
-    rgba(37, 99, 235, 0.14),
-    rgba(77, 159, 91, 0.18)
-  );
-}
-
 .page-events-past .section-header {
   margin-bottom: 2rem;
 }

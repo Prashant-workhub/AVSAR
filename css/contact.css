@@ -24,10 +24,6 @@ body.page-contact .spotlight-card {
   );
 }
 
-.page-contact .map-frame {
-  border: 0.0625rem solid rgba(77, 159, 91, 0.16);
-}
-
 .page-contact .social-link:hover,
 .page-contact .social-link:focus-visible {
   background: rgba(232, 245, 234, 0.92);
