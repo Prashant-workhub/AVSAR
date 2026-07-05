@@ -1817,7 +1817,7 @@ body:not(.page-home) main > .section:not(.page-hero):nth-of-type(even)::before {
 .footer-grid h3,
 .footer-grid h4 {
   color: #fff;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.65rem;
 }
 
 .footer-links,
@@ -1832,8 +1832,8 @@ body:not(.page-home) main > .section:not(.page-hero):nth-of-type(even)::before {
   justify-content: space-between;
   gap: 1rem;
   align-items: center;
-  padding-top: 1.4rem;
-  margin-top: 1.4rem;
+  padding-top: 1 rem;
+  margin-top: 1rem;
   border-top: 0.0625rem solid rgba(148, 163, 184, 0.16);
 }
 
@@ -2688,4 +2688,8 @@ body::after {
     opacity: 1;
     transform: none;
   }
+}
+
+.icon-fav {
+  font-size: 1.4rem;
 }
