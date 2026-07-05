@@ -33,52 +33,22 @@ const programToneClassMap = {
 
 const programIconMap = {
   book: `
-    <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true">
-      <path d="M6 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2V6a2 2 0 0 1 2-2Z" />
-      <path d="M12 4h6a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2h-6" />
-      <path d="M8 8h4" />
-      <path d="M8 11h4" />
-    </svg>
+   <i class="fa-brands fa-leanpub icon-fav"></i>
   `,
   spark: `
-    <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true">
-      <path d="M12 3v2.25" />
-      <path d="M12 18.75V21" />
-      <path d="M4.5 8.25l1.6 1.6" />
-      <path d="M17.9 15.65l1.6 1.6" />
-      <path d="M3 12h2.25" />
-      <path d="M18.75 12H21" />
-      <path d="M6.1 17.25l1.6-1.6" />
-      <path d="M15.9 7.45l1.6-1.6" />
-      <path d="M12 7.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Z" />
-    </svg>
+    <i class="fa-solid fa-user-graduate icon-fav"></i>
   `,
   heart: `
-    <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true">
-      <path d="M20.5 8.5c0 5.4-8.5 11-8.5 11S3.5 13.9 3.5 8.5A4.5 4.5 0 0 1 12 6.2a4.5 4.5 0 0 1 8.5 2.3Z" />
-    </svg>
+ <i class="fa-solid fa-heart-pulse icon-fav"></i>
   `,
   users: `
-    <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true">
-      <path d="M8.5 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-      <path d="M15.5 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
-      <path d="M4.5 19a4 4 0 0 1 8 0" />
-      <path d="M13 19a4.5 4.5 0 0 1 6.5-4" />
-    </svg>
+   <i class="fa-solid fa-users icon-fav"></i>
   `,
   target: `
-    <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true">
-      <circle cx="12" cy="12" r="8.5" />
-      <circle cx="12" cy="12" r="4.5" />
-      <circle cx="12" cy="12" r="1.4" />
-    </svg>
+   <i class="fa-solid fa-child-reaching icon-fav"></i>
   `,
   globe: `
-    <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true">
-      <circle cx="12" cy="12" r="8.5" />
-      <path d="M3.5 12h17" />
-      <path d="M12 3.5c2.8 2.8 4.1 5.7 4.1 8.5S14.8 18.2 12 20.5c-2.8-2.3-4.1-5.2-4.1-8.5S9.2 6.3 12 3.5Z" />
-    </svg>
+    <i class="fa-solid fa-earth-asia icon-fav"></i>
   `,
 };
 
@@ -108,7 +78,7 @@ const renderPrograms = () => {
           data-animate
         >
           <span class="program-icon" aria-hidden="true">
-            ${programIconMap[program.icon] || programIconMap.book}
+            ${programIconMap[program.icon]}
           </span>
           <h3>${escapeHtml(program.title)}</h3>
           <p>${escapeHtml(program.description)}</p>
@@ -141,10 +111,14 @@ const renderEvents = () => {
         (event) => `
           ${(() => {
             const videoId = event.videoId || event.youtubeId || "";
-            const hasEmbed = Boolean(videoId) && !/^(YOUR_|PLACEHOLDER_|ADD_)/i.test(videoId);
-            const ratio = event.kind === "short" ? "9 / 16" : event.ratio || "16 / 9";
+            const hasEmbed =
+              Boolean(videoId) && !/^(YOUR_|PLACEHOLDER_|ADD_)/i.test(videoId);
+            const ratio =
+              event.kind === "short" ? "9 / 16" : event.ratio || "16 / 9";
             const embedUrl = hasEmbed ? buildYouTubeEmbedUrl(videoId) : "";
-            const notesMarkup = (event.notes || []).map((note) => `<li>${note}</li>`).join("");
+            const notesMarkup = (event.notes || [])
+              .map((note) => `<li>${note}</li>`)
+              .join("");
 
             return `
           <article class="event-recap card" data-animate>
@@ -153,15 +127,15 @@ const renderEvents = () => {
               style="--event-ratio: ${ratio}"
             >
               ${
-                embedUrl
-                  ? `<iframe
+                embedUrl ?
+                  `<iframe
                       src="${embedUrl}"
                       title="${event.title}"
                       loading="lazy"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowfullscreen
                     ></iframe>`
-                  : `<div class="event-recap__placeholder">
+                : `<div class="event-recap__placeholder">
                       <strong>Add a YouTube video ID</strong>
                       <span>Replace the placeholder value in <code>js/data/events.js</code>.</span>
                     </div>`
@@ -221,11 +195,15 @@ const renderDonate = () => {
   donationSlider.min = String(sliderConfig.min ?? 100);
   donationSlider.max = String(sliderConfig.max ?? 5000);
   donationSlider.step = String(sliderConfig.step ?? 50);
-  donationSlider.value = String(sliderConfig.defaultAmount ?? donationSlider.value);
+  donationSlider.value = String(
+    sliderConfig.defaultAmount ?? donationSlider.value,
+  );
 
-  if (donationBankHolder) donationBankHolder.textContent = bank.accountHolder || "";
+  if (donationBankHolder)
+    donationBankHolder.textContent = bank.accountHolder || "";
   if (donationBankName) donationBankName.textContent = bank.bankName || "";
-  if (donationBankAccount) donationBankAccount.textContent = bank.accountNumber || "";
+  if (donationBankAccount)
+    donationBankAccount.textContent = bank.accountNumber || "";
   if (donationBankIfsc) donationBankIfsc.textContent = bank.ifsc || "";
   if (donationBankBranch) donationBankBranch.textContent = bank.branch || "";
   if (donationBankNote) donationBankNote.textContent = bank.note || "";
@@ -251,13 +229,15 @@ const renderDonate = () => {
 
     donationAmountLabel.textContent = `Rs ${amountValue.toLocaleString("en-IN")}`;
     if (donationUpiText) {
-      donationUpiText.textContent = upi
-        ? `UPI ID: ${upi} | Amount: Rs ${amountValue.toLocaleString("en-IN")}`
+      donationUpiText.textContent =
+        upi ?
+          `UPI ID: ${upi} | Amount: Rs ${amountValue.toLocaleString("en-IN")}`
         : `Add your UPI ID in js/data/donate.js | Amount: Rs ${amountValue.toLocaleString("en-IN")}`;
     }
     if (donationUpiButton) {
       donationUpiButton.href = payload;
-      donationUpiButton.textContent = upi ? "Open Payment App" : "Add UPI ID to enable";
+      donationUpiButton.textContent =
+        upi ? "Open Payment App" : "Add UPI ID to enable";
     }
   };
 

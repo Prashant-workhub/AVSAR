@@ -1,16 +1,7 @@
-// =====================================================================
-// AVSAR — Intro Loading Animation controller
-// Add <script src="js/intro.js"></script> to index.html, right before
-// the closing </body> tag (after js/main.js is fine too, they don't
-// depend on each other).
-// =====================================================================
 
 (function () {
   const overlay = document.getElementById("intro-overlay");
   if (!overlay) return;
-
-  // Only play once per browser tab session. Delete this block (and the
-  // sessionStorage.setItem call below) if you want it on every load.
   const alreadyShown = sessionStorage.getItem("avsarIntroShown");
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
@@ -33,7 +24,6 @@
   };
 
   if (prefersReducedMotion) {
-    // Skip straight to a simple fade instead of the full sequence.
     finish();
     return;
   }
