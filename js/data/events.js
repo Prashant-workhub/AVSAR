@@ -28,6 +28,21 @@ window.AVSAR_EVENTS_DATA = {
         "Every smile reflects our mission to provide equal learning opportunities for every child.",
       ],
     },
+    
+    {
+      theme: "community",
+      kind: "video",
+      title: "Clothes Distribution Drive",
+      caption: "Bringing Warmth to Every Home",
+      videoId: "9nVX3qZSBww",
+      summary:
+        "We visited underserved communities along with our supportive volunteers in Bhind to distribute clothing to families in need, spreading warmth, dignity, and hope while supporting those facing difficult circumstances.",
+      notes: [
+        "Essential clothing was distributed to children, women, and elderly members of the community.",
+        "The drive focused on reaching underserved areas where access to basic necessities is limited.",
+        "Together with our supporters and volunteers, we turned compassion into meaningful action for families in need.",
+      ],
+    },
     {
       theme: "nature",
       kind: "video",
