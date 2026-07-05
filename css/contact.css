@@ -29,3 +29,35 @@ body.page-contact .spotlight-card {
   background: rgba(232, 245, 234, 0.92);
   border-color: rgba(77, 159, 91, 0.28);
 }
+
+@media (max-width: 40rem) {
+  .page-contact .contact-card {
+    padding: 1.05rem;
+    border-radius: 1.1rem;
+  }
+
+  .page-contact .contact-card-head {
+    gap: 0.75rem;
+  }
+
+  .page-contact .contact-card-link {
+    width: 100%;
+    min-height: 3rem;
+    justify-content: center;
+  }
+
+  .page-contact iframe {
+    width: 100%;
+    height: 15.5rem;
+    border-radius: 1.1rem;
+  }
+
+  .page-contact .social-row {
+    gap: 0.6rem;
+  }
+
+  .page-contact .social-link {
+    flex: 1 1 calc(50% - 0.3rem);
+    min-width: 0;
+  }
+}

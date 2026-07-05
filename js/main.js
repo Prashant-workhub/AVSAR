@@ -407,6 +407,21 @@ if (galleryItems.length) {
   });
 }
 
+const mobileDonate = document.querySelector(".mobile-donate");
+const siteFooter = document.querySelector(".site-footer");
+
+if (mobileDonate && siteFooter) {
+  const footerObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        mobileDonate.classList.toggle("is-compact", entry.isIntersecting);
+      });
+    },
+    { threshold: 0, rootMargin: "0px 0px -10% 0px" },
+  );
+  footerObserver.observe(siteFooter);
+}
+
 programExpandButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const card = button.closest(".program-card");

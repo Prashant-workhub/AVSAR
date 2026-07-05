@@ -138,3 +138,42 @@ body.page-about .spotlight-card {
     padding: 1rem 1.05rem;
   }
 }
+
+@media (max-width: 40rem) {
+  .page-about .founder-layout {
+    gap: 1.25rem;
+  }
+
+  .page-about .founder-portrait {
+    max-width: 14rem;
+    margin: 0 auto;
+    padding: 0.7rem;
+    border-radius: 1.3rem;
+  }
+
+  .page-about .founder-portrait::after {
+    width: 3.2rem;
+    height: 3.2rem;
+    right: 0.6rem;
+    bottom: -0.5rem;
+  }
+
+  .page-about .founder-card {
+    text-align: left;
+  }
+
+  .page-about .founder-quote {
+    padding: 0.9rem 1rem;
+    margin-top: 1rem;
+  }
+
+  .page-about .partner-rail {
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+
+  .page-about .partner-chip {
+    min-width: 9rem;
+    padding: 0.8rem 1rem;
+    font-size: 0.85rem;
+  }
+}

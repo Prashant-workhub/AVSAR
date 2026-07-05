@@ -302,3 +302,80 @@ body.page-donate .spotlight-card {
     font-size: 0.95rem;
   }
 }
+
+@media (max-width: 40rem) {
+  /* QR + amount are the action people came for — put them before the
+     bank-transfer fallback instead of the default source order */
+  .donation-tool-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .donation-slider-panel {
+    order: 1;
+  }
+
+  .donation-qr-panel {
+    order: 2;
+  }
+
+  .donation-bank-panel {
+    order: 3;
+  }
+
+  .donation-panel {
+    padding: 1.05rem;
+    border-radius: 1.15rem;
+    gap: 0.75rem;
+  }
+
+  .donation-panel h3 {
+    font-size: 1.05rem;
+  }
+
+  .donation-amount-readout {
+    padding: 0.75rem 0.85rem;
+  }
+
+  .donation-amount-readout strong {
+    font-size: 1.5rem;
+  }
+
+  .qr-shell {
+    min-height: 14rem;
+  }
+
+  .qr-code {
+    width: min(100%, 12.5rem);
+    min-height: 12.5rem;
+  }
+
+  .bank-details div {
+    padding: 0.75rem 0.85rem;
+  }
+
+  .bank-details dd {
+    font-size: 0.92rem;
+  }
+
+  .impact-story {
+    padding: 1rem;
+    border-radius: 1.2rem;
+  }
+
+  .impact-story .story-highlight {
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .impact-story h3 {
+    font-size: 0.98rem;
+  }
+
+  .impact-story ul li {
+    font-size: 0.82rem;
+    padding: 0.4rem 0;
+  }
+}

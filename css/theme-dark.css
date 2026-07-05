@@ -477,3 +477,20 @@ p,
   background: rgba(255, 255, 255, 0.12) !important;
   border-color: rgba(255, 255, 255, 0.24) !important;
 }
+@media (max-width: 55rem) {
+  .nav-links.open {
+    background: rgba(10, 15, 26, 0.97) !important;
+    border-color: rgba(255, 255, 255, 0.14) !important;
+    box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.45) !important;
+  }
+
+  .nav-links.open a {
+    color: #eef2f7 !important;
+  }
+
+  .nav-links.open a:hover,
+  .nav-links.open a:focus-visible,
+  .nav-links.open a.active {
+    background: rgba(255, 255, 255, 0.08) !important;
+  }
+}

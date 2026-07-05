@@ -30,3 +30,13 @@ body.page-gallery .spotlight-card {
 .page-gallery .masonry {
   column-gap: 1.35rem;
 }
+
+@media (max-width: 40rem) {
+  .page-gallery .masonry {
+    column-gap: 0;
+  }
+
+  .page-gallery .gallery-item {
+    box-shadow: var(--shadow-sm);
+  }
+}
