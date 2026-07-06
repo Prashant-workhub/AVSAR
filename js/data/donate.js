@@ -6,12 +6,13 @@ window.AVSAR_DONATE_DATA = {
     step: 50,
     defaultAmount: 599,
   },
-  bank: {
-    accountHolder: "AVSAR Social Foundation",
-    bankName: "Sample Bank",
-    accountNumber: "1234 5678 9012",
-    ifsc: "SAMP0001234",
-    branch: "Main Branch",
-    note: "DO not Make payment , it is still under development ",
-  },
+  // bank: {
+  //   accountHolder: "AVSAR Social Foundation",
+  //   bankName: "Central Bank of India",
+  //   accountNumber: "5700018766",
+  //   ifsc: "CBIN0285170",
+  //   branch: "Main Branch",
+  //   note: "Donations will be explicitly utilized for community welfare and educational campaigns.",
+  //
+  // },
 };

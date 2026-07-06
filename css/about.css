@@ -29,10 +29,6 @@ body.page-about .spotlight-card {
   border: 0.0625rem solid rgba(77, 159, 91, 0.12);
 }
 
-.page-about .partner-chip {
-  background: rgba(244, 250, 245, 0.96);
-}
-
 .page-about .founder-layout {
   display: grid;
   grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
@@ -45,7 +41,11 @@ body.page-about .spotlight-card {
   margin: 0;
   padding: 1.1rem;
   border-radius: 2rem;
-  background: linear-gradient(135deg, rgba(209, 44, 44, 0.14), rgba(249, 115, 22, 0.08));
+  background: linear-gradient(
+    135deg,
+    rgba(209, 44, 44, 0.14),
+    rgba(249, 115, 22, 0.08)
+  );
   box-shadow: var(--shadow-lg);
 }
 
@@ -73,7 +73,11 @@ body.page-about .spotlight-card {
 .page-about .founder-card {
   padding: clamp(1.6rem, 3vw, 2.4rem);
   border-radius: 2rem;
-  background: linear-gradient(180deg, rgba(255, 250, 240, 0.98), rgba(251, 243, 230, 0.96));
+  background: linear-gradient(
+    180deg,
+    rgba(255, 250, 240, 0.98),
+    rgba(251, 243, 230, 0.96)
+  );
   box-shadow: var(--shadow-md);
 }
 
@@ -165,15 +169,5 @@ body.page-about .spotlight-card {
   .page-about .founder-quote {
     padding: 0.9rem 1rem;
     margin-top: 1rem;
-  }
-
-  .page-about .partner-rail {
-    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-  }
-
-  .page-about .partner-chip {
-    min-width: 9rem;
-    padding: 0.8rem 1rem;
-    font-size: 0.85rem;
   }
 }
