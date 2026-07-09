@@ -10,6 +10,7 @@ const impactInput = document.querySelector("[data-impact-input]");
 const impactOutput = document.querySelector("[data-impact-output]");
 let donationSlider = null;
 let donationAmountLabel = null;
+let donationAmountInput = null;
 let donationUpiText = null;
 let donationQrGrid = null;
 let donationUpiButton = null;
@@ -188,6 +189,7 @@ const renderDonate = () => {
 
   donationSlider = document.querySelector("[data-donation-slider]");
   donationAmountLabel = document.querySelector("[data-donation-amount-label]");
+  donationAmountInput = document.querySelector("[data-donation-amount-input]");
   donationUpiText = document.querySelector("[data-donation-upi-text]");
   donationQrGrid = document.querySelector("[data-donation-qr-grid]");
   donationUpiButton = document.querySelector("[data-donation-upi-button]");
@@ -213,6 +215,12 @@ const renderDonate = () => {
   donationSlider.value = String(
     sliderConfig.defaultAmount ?? donationSlider.value,
   );
+  if (donationAmountInput) {
+    donationAmountInput.min = donationSlider.min;
+    donationAmountInput.max = donationSlider.max;
+    donationAmountInput.step = "1";
+    donationAmountInput.value = donationSlider.value;
+  }
 
   if (donationBankHolder)
     donationBankHolder.textContent = bank.accountHolder || "";
@@ -223,9 +231,25 @@ const renderDonate = () => {
   if (donationBankBranch) donationBankBranch.textContent = bank.branch || "";
   if (donationBankNote) donationBankNote.textContent = bank.note || "";
 
+  const minAmount = Number(donationSlider.min || sliderConfig.min || 100);
+  const maxAmount = Number(donationSlider.max || sliderConfig.max || 5000);
+  const normalizeAmount = (value) => {
+    const numericValue = Number(value);
+    if (!Number.isFinite(numericValue)) return minAmount;
+    const roundedValue = Math.round(numericValue);
+    return Math.min(maxAmount, Math.max(minAmount, roundedValue));
+  };
+
+  const syncDonationAmount = (value) => {
+    const normalizedAmount = normalizeAmount(value);
+    if (donationSlider) donationSlider.value = String(normalizedAmount);
+    if (donationAmountInput) donationAmountInput.value = String(normalizedAmount);
+    renderQr(normalizedAmount);
+  };
+
   const renderQr = (amount) => {
     const amountValue = Number(amount || 0);
-    const payload = paymentPage || buildUpiUri(upi, amountValue);
+    const payload = buildUpiUri(upi, amountValue);
     if (donationQrGrid) {
       donationQrGrid.innerHTML = "";
       if (window.QRCode) {
@@ -246,7 +270,7 @@ const renderDonate = () => {
     if (donationUpiText) {
       donationUpiText.textContent =
         upi ?
-          `Amount: Rs ${amountValue.toLocaleString("en-IN")} | Scan or tap to open the secure payment page`
+          `Amount: Rs ${amountValue.toLocaleString("en-IN")} | Scan the QR to pay instantly`
         : `Add your UPI ID in js/data/donate.js | Amount: Rs ${amountValue.toLocaleString("en-IN")}`;
     }
     if (donationUpiButton) {
@@ -257,10 +281,25 @@ const renderDonate = () => {
   };
 
   donationSlider.addEventListener("input", () => {
-    renderQr(donationSlider.value);
+    syncDonationAmount(donationSlider.value);
   });
 
-  renderQr(donationSlider.value);
+  if (donationAmountInput) {
+    donationAmountInput.addEventListener("input", () => {
+      if (donationAmountInput.value.trim() === "") return;
+      syncDonationAmount(donationAmountInput.value);
+    });
+
+    donationAmountInput.addEventListener("blur", () => {
+      if (donationAmountInput.value.trim() === "") {
+        syncDonationAmount(donationSlider.value);
+        return;
+      }
+      syncDonationAmount(donationAmountInput.value);
+    });
+  }
+
+  syncDonationAmount(donationSlider.value);
 };
 
 renderPrograms();

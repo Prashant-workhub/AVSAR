@@ -292,8 +292,27 @@
               <span class="eyebrow">Donation Amount</span>
               <h3>Choose your amount</h3>
               <div class="donation-amount-readout">
-                <strong data-donation-amount-label>Rs 599</strong>
-                <span data-donation-amount-note>Live QR preview</span>
+                <div class="donation-amount-summary">
+                  <strong data-donation-amount-label>Rs 599</strong>
+                  <span data-donation-amount-note>Live QR preview</span>
+                </div>
+                <label class="donation-amount-field" for="donationAmountInput">
+                  <span class="donation-amount-field-label">Custom amount</span>
+                  <div class="donation-amount-field-control">
+                    <span class="donation-amount-prefix">Rs</span>
+                    <input
+                      id="donationAmountInput"
+                      class="donation-amount-input"
+                      type="number"
+                      inputmode="numeric"
+                      min="50"
+                      max="5000"
+                      step="50"
+                      value="499"
+                      data-donation-amount-input
+                    />
+                  </div>
+                </label>
               </div>
               <input
                 class="donation-slider"
@@ -310,8 +329,8 @@
               </div>
             </article>
             <article class="donation-panel donation-qr-panel" data-animate>
-              <span class="eyebrow">Secure Payment</span>
-              <h3>Scan or tap to pay</h3>
+              <span class="eyebrow">UPI QR</span>
+              <h3>Scan to pay</h3>
               <div class="qr-shell">
                 <div class="qr-code" data-donation-qr-grid></div>
               </div>
