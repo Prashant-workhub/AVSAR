@@ -613,7 +613,6 @@ p {
 }
 
 .hero-art,
-.spotlight-card,
 .donation-panel,
 .section-header,
 .card,
@@ -623,8 +622,7 @@ p {
 }
 
 .hero-art,
-.donation-panel,
-.spotlight-card {
+.donation-panel {
   animation-name: rise-in, float-gentle;
   animation-duration: 800ms, 7s;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1), ease-in-out;
@@ -632,12 +630,11 @@ p {
   animation-iteration-count: 1, infinite;
 }
 
-.hero-art,
-.spotlight-card {
+.hero-art {
   will-change: transform;
 }
 
-.hero-visual .spotlight-card {
+.hero-visual {
   animation-delay: 120ms, 0ms;
 }
 
@@ -645,7 +642,7 @@ p {
   animation-delay: 80ms, 0ms;
 }
 
-.page-hero-visual .spotlight-card {
+.page-hero-visual {
   animation-delay: 170ms, 0ms;
 }
 
@@ -741,56 +738,6 @@ p {
 .hero-art .tag {
   background: rgba(255, 255, 255, 0.14);
   color: #fff;
-}
-
-.spotlight-card {
-  position: relative;
-  height: 100%;
-  padding: 2rem;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  background:
-    linear-gradient(145deg, rgba(10, 30, 76, 0.65), rgba(37, 99, 235, 0.58)),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent);
-  color: #fff;
-  box-shadow: var(--shadow-lg);
-}
-
-.spotlight-card::before {
-  content: "";
-  position: absolute;
-  inset: auto -10% -10% auto;
-  width: 15rem;
-  height: 15rem;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.09);
-}
-
-.spotlight-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.16), transparent 40%),
-    radial-gradient(
-      circle at 70% 20%,
-      rgba(249, 115, 22, 0.28),
-      transparent 26%
-    );
-  pointer-events: none;
-}
-
-.spotlight-card h3,
-.spotlight-card p,
-.spotlight-card li {
-  position: relative;
-  z-index: 1;
-  color: inherit;
-}
-
-.spotlight-card ul {
-  padding-left: 1rem;
-  margin: 1.5rem 0 0;
 }
 
 .split-section {
@@ -926,19 +873,17 @@ p {
 .theme-women::before,
 .theme-skills::before,
 .theme-environment::before,
-.theme-events::before{
+.theme-events::before {
+  content: "";
+  position: absolute;
+  inset: 0;
 
-    content:"";
-    position:absolute;
-    inset:0;
-
-    background:
-        linear-gradient(
-            to top,
-            rgba(0,0,0,.65),
-            rgba(0,0,0,.25),
-            transparent
-        );
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.65),
+    rgba(0, 0, 0, 0.25),
+    transparent
+  );
 }
 
 .theme-women {
@@ -2047,23 +1992,6 @@ body::after {
     display: none;
   }
 
-  .spotlight-card {
-    order: 1;
-    padding: 1.15rem 1.25rem;
-    border-radius: 1.25rem;
-  }
-
-  .spotlight-card ul {
-    margin-top: 0.9rem;
-    padding-left: 0.9rem;
-  }
-
-  .spotlight-card ul li {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    margin-bottom: 0.4rem;
-  }
-
   .hero-badge-grid {
     order: 2;
   }
@@ -2369,7 +2297,6 @@ body::after {
     height: 2.6rem;
   }
 
-  .spotlight-card,
   .card,
   .form-shell,
   .cta-band {
