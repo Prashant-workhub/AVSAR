@@ -600,7 +600,7 @@ p {
 }
 
 .hero-copy h1 {
-  max-width: 11ch;
+  max-width: none;
 }
 
 .hero-copy,
@@ -686,7 +686,7 @@ p {
   from {
     opacity: 0;
     transform: translateY(1.15rem);
-    filter: blur(0.2rem);
+    filter: blur(0.1rem);
   }
   to {
     opacity: 1;

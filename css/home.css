@@ -1,12 +1,12 @@
 .page-home .hero-copy h1 {
-  background: linear-gradient(135deg, #ffffff 0%, #e0ecff 48%, #bfdbfe 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #dbeafe 52%, #bfdbfe 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .page-home .hero-copy .lead {
-  color: rgba(226, 232, 240, 0.9);
+  color: rgba(226, 232, 240, 0.88);
 }
 
 .trust-strip {
@@ -25,7 +25,7 @@
   background: rgba(255, 255, 255, 0.14);
   border: 0.0625rem solid rgba(255, 255, 255, 0.18);
   box-shadow: var(--shadow-sm);
-  backdrop-filter: blur(1.125rem);
+  backdrop-filter: blur(0.5rem);
 }
 
 .trust-pill strong {
@@ -65,7 +65,7 @@
   border: 0.0625rem solid rgba(79, 143, 97, 0.18);
   border-radius: 1.375rem;
   box-shadow: var(--shadow-md);
-  backdrop-filter: blur(1.125rem);
+  backdrop-filter: blur(0.5rem);
 }
 
 .hero-badge strong {
@@ -163,16 +163,11 @@
 
 @media (max-width: 40rem) {
   .page-home .hero-copy {
-    padding: 1.05rem 1.05rem;
-    border-radius: 1.1rem;
-    background: linear-gradient(
-      180deg,
-      rgba(16, 37, 24, 0.7),
-      rgba(16, 37, 24, 0.5)
-    );
-    border: 0.0625rem solid rgba(255, 255, 255, 0.12);
-    box-shadow: 0 0.6rem 1.6rem rgba(7, 18, 12, 0.22);
-    backdrop-filter: blur(0.9rem);
+    padding: 0.2rem 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    backdrop-filter: none;
   }
 
   .stat-card {
@@ -207,7 +202,7 @@
   }
 
   .page-home .hero-copy h1 {
-    max-width: 9.5ch;
+    max-width: none;
     font-size: clamp(1.95rem, 9vw, 2.5rem);
     line-height: 1.05;
   }
@@ -217,7 +212,7 @@
     margin-bottom: 0;
     font-size: 0.94rem;
     line-height: 1.5;
-    color: rgba(241, 245, 249, 0.92);
+    color: rgba(226, 232, 240, 0.88);
   }
 
   .trust-strip {
