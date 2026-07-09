@@ -437,12 +437,15 @@ programExpandButtons.forEach((button) => {
 
 demoForms.forEach((form) => {
   form.addEventListener("submit", (event) => {
+    const hasExplicitAction = Boolean(form.getAttribute("action"));
+    if (hasExplicitAction) return;
+
     event.preventDefault();
     const status = form.querySelector(".form-status");
     if (!status) return;
-    status.textContent =
-      "Thank you. Your message has been captured in this demo layout and can be connected to your backend next.";
-    form.reset();
+    ((status.textContent =
+      "The Form Was Not Submitted Properly , Please Contact through other option. Thank You"),
+      reset());
   });
 });
 

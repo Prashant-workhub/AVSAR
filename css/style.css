@@ -2103,7 +2103,6 @@ body::after {
     border-radius: 0.9rem;
   }
 
-  /* ---------- Buttons ---------- */
   .btn-row {
     flex-direction: column;
     gap: 0.65rem;
