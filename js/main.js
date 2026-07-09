@@ -163,9 +163,21 @@ const renderEvents = () => {
 
 const buildUpiUri = (upi, amount) => {
   const amountValue = Number(amount || 0).toFixed(2);
-  const query = [`am=${amountValue}`, "cu=INR"];
+  const query = [
+    `am=${amountValue}`,
+    "cu=INR",
+    "mode=02",
+    "purpose=00",
+  ];
   if (upi) {
     query.unshift(`pa=${encodeURIComponent(upi)}`);
+    query.push(`pn=${encodeURIComponent("AVSAR Social Foundation")}`);
+    query.push(
+      `tn=${encodeURIComponent(
+        `Donation to AVSAR Social Foundation Rs ${Number(amountValue).toLocaleString("en-IN")}`,
+      )}`,
+    );
+    query.push(`tr=${encodeURIComponent(`AVSAR-${Date.now()}`)}`);
   }
   return `upi://pay?${query.join("&")}`;
 };
@@ -190,6 +202,9 @@ const renderDonate = () => {
 
   const sliderConfig = donateData.slider || {};
   const upi = donateData.upi || "";
+  const paymentPage =
+    donateData.paymentPage ||
+    "https://pages.razorpay.com/donate-avsarsocialfoundation";
   const bank = donateData.bank || {};
 
   donationSlider.min = String(sliderConfig.min ?? 100);
@@ -210,7 +225,7 @@ const renderDonate = () => {
 
   const renderQr = (amount) => {
     const amountValue = Number(amount || 0);
-    const payload = buildUpiUri(upi, amountValue);
+    const payload = paymentPage || buildUpiUri(upi, amountValue);
     if (donationQrGrid) {
       donationQrGrid.innerHTML = "";
       if (window.QRCode) {
@@ -231,13 +246,13 @@ const renderDonate = () => {
     if (donationUpiText) {
       donationUpiText.textContent =
         upi ?
-          `UPI ID: ${upi} | Amount: Rs ${amountValue.toLocaleString("en-IN")}`
+          `Amount: Rs ${amountValue.toLocaleString("en-IN")} | Scan or tap to open the secure payment page`
         : `Add your UPI ID in js/data/donate.js | Amount: Rs ${amountValue.toLocaleString("en-IN")}`;
     }
     if (donationUpiButton) {
-      donationUpiButton.href = payload;
+      donationUpiButton.href = paymentPage;
       donationUpiButton.textContent =
-        upi ? "Open Payment App" : "Add UPI ID to enable";
+        upi ? "Continue to Secure Payment" : "Add UPI ID to enable";
     }
   };
 
