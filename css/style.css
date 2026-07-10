@@ -898,7 +898,7 @@ p {
 
 .theme-education {
   background-color: #2563eb;
-  background-image: url("../images/education-scene.png");
+  background-image: url("../images/education-scene.avif");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -906,7 +906,7 @@ p {
 
 .theme-healthcare {
   background-color: #0f766e;
-  background-image: url("../images/healthcare-scene.jpg");
+  background-image: url("../images/healthcare-scene.avif");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -932,7 +932,7 @@ p {
 
 .theme-women {
   background-color: #a855f7;
-  background-image: url("../images/women-scene.jpg");
+  background-image: url("../images/women-scene.avif");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -940,7 +940,7 @@ p {
 
 .theme-skills {
   background-color: #1d4ed8;
-  background-image: url("../images/skill.png");
+  background-image: url("../images/skill.avif");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -948,7 +948,7 @@ p {
 
 .theme-environment {
   background-color: #15803d;
-  background-image: url("../images/green.jpg");
+  background-image: url("../images/green.avif");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -956,7 +956,7 @@ p {
 
 .theme-rural {
   background-color: #b45309;
-  background-image: url("../images/community-scene.png");
+  background-image: url("../images/community-scene.avif");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -964,7 +964,7 @@ p {
 
 .theme-story {
   background-color: #0f172a;
-  background-image: url("../images/kids-bg.png");
+  background-image: url("../images/kids-bg.avif");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
