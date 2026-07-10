@@ -166,12 +166,7 @@ const renderEvents = () => {
 
 const buildUpiUri = (upi, amount) => {
   const amountValue = Number(amount || 0).toFixed(2);
-  const query = [
-    `am=${amountValue}`,
-    "cu=INR",
-    "mode=02",
-    "purpose=00",
-  ];
+  const query = [`am=${amountValue}`, "cu=INR", "mode=02", "purpose=00"];
   if (upi) {
     query.unshift(`pa=${encodeURIComponent(upi)}`);
     query.push(`pn=${encodeURIComponent("AVSAR Social Foundation")}`);
@@ -281,7 +276,8 @@ const renderDonate = () => {
   const syncDonationAmount = (value, { immediateQr = false } = {}) => {
     const normalizedAmount = normalizeAmount(value);
     if (donationSlider) donationSlider.value = String(normalizedAmount);
-    if (donationAmountInput) donationAmountInput.value = String(normalizedAmount);
+    if (donationAmountInput)
+      donationAmountInput.value = String(normalizedAmount);
     updateDonationCopy(normalizedAmount);
 
     if (qrRenderTimer) {
@@ -545,16 +541,61 @@ programExpandButtons.forEach((button) => {
 });
 
 demoForms.forEach((form) => {
-  form.addEventListener("submit", (event) => {
-    const hasExplicitAction = Boolean(form.getAttribute("action"));
-    if (hasExplicitAction) return;
-
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
+
     const status = form.querySelector(".form-status");
+    const submitButton = form.querySelector('button[type="submit"]');
+    const action = form.getAttribute("action");
+    const method = (form.getAttribute("method") || "POST").toUpperCase();
+
     if (!status) return;
-    ((status.textContent =
-      "The Form Was Not Submitted Properly , Please Contact through other option. Thank You"),
-      reset());
+    if (!action) {
+      status.dataset.state = "error";
+      status.textContent =
+        "Thanks for your message. Please reach out through another option so we can help you quickly.";
+      form.reset();
+      return;
+    }
+
+    const originalButtonText = submitButton?.textContent || "";
+    const setButtonState = (disabled, label) => {
+      if (!submitButton) return;
+      submitButton.disabled = disabled;
+      if (label) {
+        submitButton.textContent = label;
+      }
+    };
+
+    try {
+      status.dataset.state = "sending";
+      status.textContent = "Sending your message...";
+      setButtonState(true, "Sending...");
+
+      const response = await fetch(action, {
+        method,
+        headers: {
+          Accept: "application/json",
+        },
+        body: new FormData(form),
+      });
+
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || data.success === false) {
+        throw new Error(data.message || "Unable to send the form right now.");
+      }
+
+      form.reset();
+      status.dataset.state = "success";
+      status.textContent =
+        "Thank you for reaching out. Your response has been sent successfully.";
+    } catch (error) {
+      status.dataset.state = "error";
+      status.textContent =
+        "Thanks for your message. We could not send it right now, please try again or contact us through another option.";
+    } finally {
+      setButtonState(false, originalButtonText);
+    }
   });
 });
 

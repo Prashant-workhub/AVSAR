@@ -1393,8 +1393,21 @@ p {
 
 .form-status {
   margin-top: 1rem;
+  min-height: 1.5rem;
   color: #166534;
   font-weight: 600;
+}
+
+.form-status[data-state="sending"] {
+  color: #92400e;
+}
+
+.form-status[data-state="error"] {
+  color: #b91c1c;
+}
+
+.form-status[data-state="success"] {
+  color: #166534;
 }
 
 .page-hero {
