@@ -275,6 +275,9 @@ const renderDonate = () => {
   const renderQr = (amount) => {
     const amountValue = Number(amount || 0);
     const payload = buildUpiUri(upi, amountValue);
+    const qrAltText = upi
+      ? `QR code for donating Rs ${amountValue.toLocaleString("en-IN")} to AVSAR Social Foundation`
+      : "QR code placeholder for AVSAR Social Foundation donations";
     if (donationQrGrid) {
       donationQrGrid.innerHTML = "";
       if (window.QRCode) {
@@ -286,6 +289,11 @@ const renderDonate = () => {
           colorLight: "#ffffff",
           correctLevel: window.QRCode.CorrectLevel.H,
         });
+        const qrImage = donationQrGrid.querySelector("img");
+        if (qrImage) {
+          qrImage.alt = qrAltText;
+          qrImage.setAttribute("aria-label", qrAltText);
+        }
       } else {
         donationQrGrid.textContent = "QR code library unavailable";
       }
