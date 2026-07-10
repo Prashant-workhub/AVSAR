@@ -1,6 +1,8 @@
 const header = document.querySelector(".site-header");
 const navToggle = document.querySelector(".nav-toggle");
 const navLinks = document.querySelector(".nav-links");
+const siteFooter = document.querySelector(".site-footer");
+const mobileDonate = document.querySelector(".mobile-donate");
 let animatedItems = [];
 const counters = document.querySelectorAll("[data-counter]");
 const faqButtons = document.querySelectorAll(".faq-question");
@@ -336,7 +338,57 @@ const setHeaderState = () => {
   header.classList.toggle("scrolled", window.scrollY > 24);
 };
 
+const setupMobileDonateFooterState = () => {
+  if (!siteFooter || !mobileDonate) return;
+
+  const donateLink = mobileDonate.querySelector("a");
+  const mobileDonateQuery = window.matchMedia("(max-width: 55rem)");
+  let footerVisible = false;
+
+  if (donateLink && !donateLink.getAttribute("aria-label")) {
+    donateLink.setAttribute("aria-label", "Donate now");
+  }
+
+  const syncDonateState = () => {
+    mobileDonate.classList.toggle(
+      "is-footer-visible",
+      mobileDonateQuery.matches && footerVisible,
+    );
+  };
+
+  if ("IntersectionObserver" in window) {
+    const footerObserver = new IntersectionObserver(
+      (entries) => {
+        footerVisible = entries.some((entry) => entry.isIntersecting);
+        syncDonateState();
+      },
+      { rootMargin: "0px 0px -12% 0px", threshold: 0.01 },
+    );
+
+    footerObserver.observe(siteFooter);
+  } else {
+    const checkFooterPosition = () => {
+      const footerBounds = siteFooter.getBoundingClientRect();
+      footerVisible = footerBounds.top < window.innerHeight;
+      syncDonateState();
+    };
+
+    window.addEventListener("scroll", checkFooterPosition, { passive: true });
+    window.addEventListener("resize", checkFooterPosition);
+    checkFooterPosition();
+  }
+
+  if (mobileDonateQuery.addEventListener) {
+    mobileDonateQuery.addEventListener("change", syncDonateState);
+  } else {
+    mobileDonateQuery.addListener(syncDonateState);
+  }
+
+  syncDonateState();
+};
+
 setHeaderState();
+setupMobileDonateFooterState();
 window.addEventListener("scroll", setHeaderState, { passive: true });
 
 if (navToggle && navLinks) {
