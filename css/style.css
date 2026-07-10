@@ -577,7 +577,7 @@ p {
   background-color: #1b4931;
   background-image:
     linear-gradient(135deg, rgba(8, 27, 17, 0.2), rgba(183, 238, 164, 0.08)),
-    url("../images/bg.png");
+    url("../images/bg.avif");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -964,7 +964,7 @@ p {
 
 .theme-story {
   background-color: #0f172a;
-  background-image: url("../images/kids-bg.png");
+  background-image: url("../images/kids-bg.avif");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
