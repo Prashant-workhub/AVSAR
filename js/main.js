@@ -12,7 +12,6 @@ const impactInput = document.querySelector("[data-impact-input]");
 const impactOutput = document.querySelector("[data-impact-output]");
 let donationSlider = null;
 let donationAmountLabel = null;
-let donationAmountInput = null;
 let donationUpiText = null;
 let donationQrGrid = null;
 let donationUpiButton = null;
@@ -205,7 +204,6 @@ const renderDonate = () => {
 
   donationSlider = document.querySelector("[data-donation-slider]");
   donationAmountLabel = document.querySelector("[data-donation-amount-label]");
-  donationAmountInput = document.querySelector("[data-donation-amount-input]");
   donationUpiText = document.querySelector("[data-donation-upi-text]");
   donationQrGrid = document.querySelector("[data-donation-qr-grid]");
   donationUpiButton = document.querySelector("[data-donation-upi-button]");
@@ -231,12 +229,6 @@ const renderDonate = () => {
   donationSlider.value = String(
     sliderConfig.defaultAmount ?? donationSlider.value,
   );
-  if (donationAmountInput) {
-    donationAmountInput.min = donationSlider.min;
-    donationAmountInput.max = donationSlider.max;
-    donationAmountInput.step = "1";
-    donationAmountInput.value = donationSlider.value;
-  }
 
   if (donationBankHolder)
     donationBankHolder.textContent = bank.accountHolder || "";
@@ -249,12 +241,19 @@ const renderDonate = () => {
 
   const minAmount = Number(donationSlider.min || sliderConfig.min || 100);
   const maxAmount = Number(donationSlider.max || sliderConfig.max || 5000);
+  const stepAmount = Number(donationSlider.step || sliderConfig.step || 1);
   let qrRenderTimer = null;
   const normalizeAmount = (value) => {
     const numericValue = Number(value);
     if (!Number.isFinite(numericValue)) return minAmount;
-    const roundedValue = Math.round(numericValue);
-    return Math.min(maxAmount, Math.max(minAmount, roundedValue));
+    const clampedValue = Math.min(maxAmount, Math.max(minAmount, numericValue));
+    if (!Number.isFinite(stepAmount) || stepAmount <= 0) {
+      return Math.round(clampedValue);
+    }
+    const snappedValue =
+      Math.round((clampedValue - minAmount) / stepAmount) * stepAmount +
+      minAmount;
+    return Math.min(maxAmount, Math.max(minAmount, Math.round(snappedValue)));
   };
 
   const updateDonationCopy = (amountValue) => {
@@ -348,8 +347,6 @@ const renderDonate = () => {
   const syncDonationAmount = (value, { immediateQr = false } = {}) => {
     const normalizedAmount = normalizeAmount(value);
     if (donationSlider) donationSlider.value = String(normalizedAmount);
-    if (donationAmountInput)
-      donationAmountInput.value = String(normalizedAmount);
     updateDonationCopy(normalizedAmount);
 
     if (qrRenderTimer) {
@@ -371,21 +368,6 @@ const renderDonate = () => {
   donationSlider.addEventListener("input", () => {
     syncDonationAmount(donationSlider.value);
   });
-
-  if (donationAmountInput) {
-    donationAmountInput.addEventListener("input", () => {
-      if (donationAmountInput.value.trim() === "") return;
-      syncDonationAmount(donationAmountInput.value);
-    });
-
-    donationAmountInput.addEventListener("blur", () => {
-      if (donationAmountInput.value.trim() === "") {
-        syncDonationAmount(donationSlider.value, { immediateQr: true });
-        return;
-      }
-      syncDonationAmount(donationAmountInput.value, { immediateQr: true });
-    });
-  }
 
   syncDonationAmount(donationSlider.value, { immediateQr: true });
 };

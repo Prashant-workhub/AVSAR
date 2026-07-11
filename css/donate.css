@@ -142,10 +142,12 @@ body.page-donate .page-hero {
 }
 
 .donation-slider-panel {
-  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .donation-amount-readout {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
@@ -156,6 +158,7 @@ body.page-donate .page-hero {
 }
 
 .donation-amount-summary {
+  width: 100%;
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -166,74 +169,6 @@ body.page-donate .page-hero {
   font-family: "Poppins", sans-serif;
   font-size: 1.9rem;
   color: var(--color-primary);
-}
-
-.donation-amount-field {
-  display: grid;
-  gap: 0.35rem;
-  text-align: left;
-}
-
-.donation-amount-field-label {
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--color-muted);
-}
-
-.donation-amount-field-control {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  padding: 0.85rem 1rem;
-  border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.96);
-  border: 0.0625rem solid rgba(77, 159, 91, 0.14);
-  transition:
-    border-color var(--transition),
-    box-shadow var(--transition),
-    background var(--transition);
-}
-
-.donation-amount-field:focus-within .donation-amount-field-control {
-  border-color: rgba(77, 159, 91, 0.32);
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0 0 0 0.2rem rgba(77, 159, 91, 0.12);
-}
-
-.donation-amount-prefix {
-  flex: 0 0 auto;
-  font-family: "Poppins", sans-serif;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--color-muted);
-}
-
-.donation-amount-input {
-  width: 100%;
-  min-width: 0;
-  border: 0;
-  outline: none;
-  background: transparent;
-  font-family: "Poppins", sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--color-primary-deep);
-}
-
-.donation-amount-input::placeholder {
-  color: rgba(71, 85, 105, 0.56);
-}
-
-.donation-amount-input[type="number"] {
-  appearance: textfield;
-}
-
-.donation-amount-input::-webkit-outer-spin-button,
-.donation-amount-input::-webkit-inner-spin-button {
-  margin: 0;
-  -webkit-appearance: none;
 }
 
 .donation-amount-summary span,
@@ -262,6 +197,7 @@ body.page-donate .page-hero {
 }
 
 .donation-range-labels {
+  width: 100%;
   display: flex;
   justify-content: space-between;
 }
@@ -369,18 +305,6 @@ body.page-donate .page-hero {
 
   .donation-amount-readout strong {
     font-size: 1.5rem;
-  }
-
-  .donation-amount-field-label {
-    font-size: 0.7rem;
-  }
-
-  .donation-amount-field-control {
-    padding: 0.72rem 0.8rem;
-  }
-
-  .donation-amount-input {
-    font-size: 0.96rem;
   }
 
   .qr-shell {
