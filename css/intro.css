@@ -174,8 +174,8 @@ body.intro-active {
 /* Real AVSAR logo, fades in where the sprout was as the final beat */
 .intro-logo {
   position: absolute;
-  width: 4.25rem;
-  height: 4.25rem;
+  width: 5rem;
+  height: 5rem;
   object-fit: contain;
   opacity: 0;
   transform: scale(0.7);

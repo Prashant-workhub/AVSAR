@@ -1511,20 +1511,28 @@ body:not(.page-home) main > .section:not(.page-hero):nth-of-type(even)::before {
   display: grid;
   place-items: center;
   width: min(100%, 16.75rem);
-  min-height: 16.75rem;
+  aspect-ratio: 1;
   padding: 0.85rem;
   border-radius: 1.375rem;
   background: #fff;
   box-shadow: var(--shadow-sm);
+  overflow: hidden;
 }
 
 .qr-code canvas,
 .qr-code img,
 .qr-code table {
+  display: block;
   width: 100% !important;
-  height: 100% !important;
+  height: auto !important;
   max-width: 100%;
-  border-radius: 1rem;
+  border-radius: 0;
+}
+
+.qr-code img,
+.qr-code canvas {
+  object-fit: contain;
+  image-rendering: auto;
 }
 
 .qr-code table {

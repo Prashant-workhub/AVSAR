@@ -272,6 +272,55 @@ const renderDonate = () => {
     }
   };
 
+  const stabilizeQrOutput = (qrAltText) => {
+    if (!donationQrGrid) return;
+
+    const qrCanvas = donationQrGrid.querySelector("canvas");
+    if (qrCanvas && typeof qrCanvas.toDataURL === "function") {
+      const sourceSize = Math.max(
+        qrCanvas.width || 0,
+        qrCanvas.height || 0,
+        qrCanvas.clientWidth || 0,
+        qrCanvas.clientHeight || 0,
+        288,
+      );
+      const exportSize = Math.max(1024, sourceSize * 4);
+      const exportCanvas = document.createElement("canvas");
+      exportCanvas.width = exportSize;
+      exportCanvas.height = exportSize;
+
+      const context = exportCanvas.getContext("2d");
+      if (!context) return;
+
+      context.fillStyle = "#ffffff";
+      context.fillRect(0, 0, exportSize, exportSize);
+      context.imageSmoothingEnabled = false;
+      context.drawImage(qrCanvas, 0, 0, exportSize, exportSize);
+
+      const qrImage = document.createElement("img");
+      qrImage.className = "donation-qr-image";
+      qrImage.alt = qrAltText;
+      qrImage.setAttribute("aria-label", qrAltText);
+      qrImage.decoding = "async";
+      qrImage.loading = "eager";
+      qrImage.src = exportCanvas.toDataURL("image/png");
+
+      if (typeof donationQrGrid.replaceChildren === "function") {
+        donationQrGrid.replaceChildren(qrImage);
+      } else {
+        donationQrGrid.innerHTML = "";
+        donationQrGrid.appendChild(qrImage);
+      }
+      return;
+    }
+
+    const qrImage = donationQrGrid.querySelector("img");
+    if (qrImage) {
+      qrImage.alt = qrAltText;
+      qrImage.setAttribute("aria-label", qrAltText);
+    }
+  };
+
   const renderQr = (amount) => {
     const amountValue = Number(amount || 0);
     const payload = buildUpiUri(upi, amountValue);
@@ -283,17 +332,13 @@ const renderDonate = () => {
       if (window.QRCode) {
         new window.QRCode(donationQrGrid, {
           text: payload,
-          width: 228,
-          height: 228,
+          width: 320,
+          height: 320,
           colorDark: "#0f172a",
           colorLight: "#ffffff",
           correctLevel: window.QRCode.CorrectLevel.H,
         });
-        const qrImage = donationQrGrid.querySelector("img");
-        if (qrImage) {
-          qrImage.alt = qrAltText;
-          qrImage.setAttribute("aria-label", qrAltText);
-        }
+        stabilizeQrOutput(qrAltText);
       } else {
         donationQrGrid.textContent = "QR code library unavailable";
       }

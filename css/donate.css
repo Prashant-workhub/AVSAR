@@ -271,6 +271,12 @@ body.page-donate .page-hero {
   text-align: center;
 }
 
+.donation-qr-panel[data-animate] {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
 .donation-qr-panel .qr-shell {
   width: 100%;
 }
@@ -383,7 +389,7 @@ body.page-donate .page-hero {
 
   .qr-code {
     width: min(100%, 12.5rem);
-    min-height: 12.5rem;
+    min-height: 0;
   }
 
   .bank-details div {
