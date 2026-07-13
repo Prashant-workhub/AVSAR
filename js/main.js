@@ -3,6 +3,8 @@ const navToggle = document.querySelector(".nav-toggle");
 const navLinks = document.querySelector(".nav-links");
 const siteFooter = document.querySelector(".site-footer");
 const mobileDonate = document.querySelector(".mobile-donate");
+const announcementFile = "announcement.html";
+const announcementSpeedSeconds = 70;
 let animatedItems = [];
 const counters = document.querySelectorAll("[data-counter]");
 const faqButtons = document.querySelectorAll(".faq-question");
@@ -81,6 +83,95 @@ const escapeHtml = (value) =>
     };
     return escapeMap[character] || character;
   });
+
+const normalizeAnnouncementMarkup = (value) =>
+  String(value || "")
+    .trim();
+
+const htmlToText = (markup) => {
+  const template = document.createElement("template");
+  template.innerHTML = markup;
+  return String(template.content.textContent || "")
+    .replace(/\s+/g, " ")
+    .trim();
+};
+
+const buildAnnouncementMarkup = (messageMarkup) => {
+  const messageText = htmlToText(messageMarkup);
+  const repeatCount = Math.max(6, Math.ceil(72 / Math.max(messageText.length, 16)));
+  const items = Array.from({ length: repeatCount }, () => messageMarkup);
+  const group = items
+    .map(
+      (item, index) => `
+        <span class="site-announcement__item">${item}</span>
+        ${
+          index < items.length - 1 ?
+            '<span class="site-announcement__dot" aria-hidden="true"></span>'
+          : ""
+        }
+      `,
+    )
+    .join("");
+
+  return `
+    <div class="site-announcement" role="region" aria-label="Site announcement">
+      <div class="site-announcement__viewport">
+        <div class="site-announcement__track">
+          <div class="site-announcement__group">${group}</div>
+          <div class="site-announcement__group" aria-hidden="true">${group}</div>
+        </div>
+      </div>
+      <span class="sr-only">${messageText}</span>
+    </div>
+  `;
+};
+
+const setupAnnouncementBar = async () => {
+  try {
+    const response = await fetch(announcementFile, { cache: "no-store" });
+    if (!response.ok) return;
+
+    const announcementMarkup = normalizeAnnouncementMarkup(await response.text());
+    if (!announcementMarkup) return;
+
+    const announcementWrap = document.createElement("div");
+    announcementWrap.innerHTML = buildAnnouncementMarkup(announcementMarkup);
+    const announcementBar = announcementWrap.firstElementChild;
+    if (!announcementBar) return;
+
+    const introOverlay = document.getElementById("intro-overlay");
+    if (introOverlay && introOverlay.parentNode === document.body) {
+      introOverlay.insertAdjacentElement("afterend", announcementBar);
+    } else {
+      document.body.insertBefore(announcementBar, document.body.firstChild);
+    }
+
+    document.body.classList.add("has-announcement");
+
+    const setAnnouncementMetrics = () => {
+      const track = announcementBar.querySelector(".site-announcement__track");
+      const barHeight = announcementBar.getBoundingClientRect().height;
+
+      document.body.style.setProperty(
+        "--announcement-height",
+        `${Math.round(barHeight)}px`,
+      );
+      if (track) {
+        track.style.setProperty(
+          "--announcement-duration",
+          `${announcementSpeedSeconds}s`,
+        );
+      }
+    };
+
+    setAnnouncementMetrics();
+    window.addEventListener("resize", setAnnouncementMetrics, {
+      passive: true,
+    });
+  } catch (error) {
+    // No announcement is better than a broken page.
+  }
+};
 
 const renderPrograms = () => {
   const grid = document.querySelector("[data-program-grid]");
@@ -323,8 +414,9 @@ const renderDonate = () => {
   const renderQr = (amount) => {
     const amountValue = Number(amount || 0);
     const payload = buildUpiUri(upi, amountValue);
-    const qrAltText = upi
-      ? `QR code for donating Rs ${amountValue.toLocaleString("en-IN")} to AVSAR Social Foundation`
+    const qrAltText =
+      upi ?
+        `QR code for donating Rs ${amountValue.toLocaleString("en-IN")} to AVSAR Social Foundation`
       : "QR code placeholder for AVSAR Social Foundation donations";
     if (donationQrGrid) {
       donationQrGrid.innerHTML = "";
@@ -375,6 +467,7 @@ const renderDonate = () => {
 renderPrograms();
 renderEvents();
 renderDonate();
+setupAnnouncementBar();
 
 animatedItems = document.querySelectorAll("[data-animate]");
 animatedItems.forEach((item, index) => {
@@ -475,7 +568,7 @@ if (animatedItems.length) {
 const animateCounter = (element) => {
   const target = Number(element.dataset.counter || 0);
   const suffix = element.dataset.suffix || "";
-  const duration = 1800;
+  const duration = 20;
   const startTime = performance.now();
 
   const tick = (now) => {
@@ -556,8 +649,7 @@ if (galleryItems.length) {
 
   galleryItems.forEach((item) => {
     item.addEventListener("click", () => {
-      const theme =
-        galleryThemeClassMap[item.dataset.theme] || "theme-story";
+      const theme = galleryThemeClassMap[item.dataset.theme] || "theme-story";
       lightboxMedia.className = `lightbox-media ${theme}`;
       lightboxTitle.textContent = item.dataset.title || "Impact Story";
       lightboxText.textContent =
