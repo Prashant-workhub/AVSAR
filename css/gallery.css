@@ -23,6 +23,53 @@ body.page-gallery .page-hero {
   column-gap: 1.35rem;
 }
 
+.page-gallery .gallery-other-section {
+  padding-top: 0;
+}
+
+.page-gallery .gallery-other-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999rem;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.page-gallery .gallery-other-masonry {
+  column-gap: 1rem;
+}
+
+.page-gallery .gallery-other-masonry .gallery-item {
+  min-height: 12rem;
+}
+
+.page-gallery .gallery-other-masonry .gallery-item.tall {
+  min-height: 18rem;
+}
+
+.page-gallery .gallery-other-masonry .gallery-item::after {
+  display: none;
+}
+
+.page-gallery .gallery-photo {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.lightbox-media.photo-preview {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 @media (max-width: 40rem) {
   .page-gallery .masonry {
     column-gap: 0;

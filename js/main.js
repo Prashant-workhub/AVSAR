@@ -666,8 +666,15 @@ if (galleryItems.length) {
 
   galleryItems.forEach((item) => {
     item.addEventListener("click", () => {
+      const image = item.dataset.image?.trim();
       const theme = galleryThemeClassMap[item.dataset.theme] || "theme-story";
-      lightboxMedia.className = `lightbox-media ${theme}`;
+      lightboxMedia.style.backgroundImage = "";
+      if (image) {
+        lightboxMedia.className = "lightbox-media photo-preview";
+        lightboxMedia.style.backgroundImage = `url("${image}")`;
+      } else {
+        lightboxMedia.className = `lightbox-media ${theme}`;
+      }
       lightboxTitle.textContent = item.dataset.title || "Impact Story";
       lightboxText.textContent =
         item.dataset.description ||
